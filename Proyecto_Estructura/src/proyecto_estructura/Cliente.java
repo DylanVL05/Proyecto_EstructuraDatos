@@ -8,17 +8,16 @@ package proyecto_estructura;
  *
  * @author andro
  */
-public class Usuario {
+public class Cliente {
     
-    private String nombre, apellidos , identificacion , correo , numero_telefono, contrasena;
+     private String nombre, apellidos , identificacion , correo, tel ;
 
-    public Usuario(String nombre, String apellidos, String identificacion, String correo, String numero, String contrasena) {
+    public Cliente(String nombre, String apellidos, String identificacion, String correo, String tel) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.identificacion = identificacion;
         this.correo = correo;
-        this.numero_telefono = numero;
-        this.contrasena = contrasena;
+        this.tel = tel;
     }
 
     public String getNombre() {
@@ -53,39 +52,21 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getNumero() {
-        return numero_telefono;
+    public String getTel() {
+        return tel;
     }
 
-    public void setNumero(String numero) {
-        this.numero_telefono = numero;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 
     @Override
     public String toString() {
-        return "Usuario{" + "nombre=" + nombre + ", apellidos=" + apellidos + ", identificacion=" + identificacion + ", correo=" + correo + ", numero=" + numero_telefono + ", contrasena=" + contrasena + '}';
+        return "Cliente{" + "nombre=" + nombre + ", apellidos=" + apellidos + ", identificacion=" + identificacion + ", correo=" + correo + ", tel=" + tel + '}';
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+ 
+     
     
     
     
