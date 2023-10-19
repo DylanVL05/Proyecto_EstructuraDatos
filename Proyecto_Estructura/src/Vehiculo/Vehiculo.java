@@ -19,58 +19,61 @@ public class Vehiculo implements Serializable {
     private String details;
     //private Cliente cliente;
     //private Vendedor vendedor;
-   /* public static void main(String[] args) {
+    public static void main(String[] args) {
         Vehiculo vehiculo = new Vehiculo();
         vehiculo.setColor("Negro");
         vehiculo.setBrand(Tipo.SEDAN);
-        String filename = "vehiculo.ser";   
-        try {
-            // Serialize the object
+        
+        Vehiculo vehiculo1 = new Vehiculo();
+        vehiculo1.setColor("Blanco");
+        vehiculo1.setBrand(Tipo.HATCHBACK);
+        
+        Vehiculo[] vehiculos= new Vehiculo[2];
+        vehiculos[0]= vehiculo;
+        vehiculos[1]= vehiculo1;
+        GuardarVehiculos(vehiculos);
+        vehiculos= null;
+        vehiculos= leerVehiculos();
+        System.out.println(vehiculos[0].toString());
+        System.out.println(vehiculos[1].toString());
+        
+    }
+    public Vehiculo() {
+        
+        
+    }
+    public static boolean GuardarVehiculos(Vehiculo[] vehiculos){
+          try {
+            String filename = "vehiculo.DYLAN"; //Nombre archivo.extension
             FileOutputStream fileOut = new FileOutputStream(filename);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(vehiculo);
+            out.writeObject(vehiculos);
             out.close();
             fileOut.close();
             File file = new File(filename);
             String absolutePath = file.getAbsolutePath();
             System.out.println("File saved at: " + absolutePath);
-
             System.out.println("Vehiculo object has been serialized and saved to " + filename + ":");
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return true;
+    }
+    public static Vehiculo[] leerVehiculos(){
         try {
-            // Deserialize the object
+            String filename = "vehiculo.DYLAN";  
             FileInputStream fileIn = new FileInputStream(filename);
             ObjectInputStream in = new ObjectInputStream(fileIn);
 
-            vehiculo = (Vehiculo) in.readObject();
+            Vehiculo[] vehiculos = (Vehiculo[]) in.readObject();
             in.close();
             fileIn.close();
+            return vehiculos;
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-            return;
-        }
-
-        // Check if vehiculo is successfully deserialized
-        if (vehiculo != null) {
-            // Log the details to the console
-            System.out.println("Deserialized Vehiculo object:");
-            System.out.println("Color: " + vehiculo.getColor());
-            System.out.println("Year: " + vehiculo.getYear());
-            System.out.println("CC: " + vehiculo.getCC());
-            System.out.println("Brand: " + vehiculo.getBrand());
-            System.out.println("Model: " + vehiculo.getModel());
-            System.out.println("Mileage: " + vehiculo.getMileage());
-            System.out.println("Details: " + vehiculo.getDetails());
-        } else {
-            System.out.println("Failed to deserialize the Vehiculo object.");
+            return null;
         }
     }
-*/
-    public Vehiculo() {
-    }
-
     public Vehiculo(String color, String year, String CC, Tipo Brand, String Model, String Mileage, String details) {
         this.color = color;
         this.year = year;
@@ -135,4 +138,10 @@ public class Vehiculo implements Serializable {
     public void setBrand(Tipo Brand) {
         this.Brand = Brand;
     }
+
+    @Override
+    public String toString() {
+        return "Vehiculo{" + "color=" + color + ", year=" + year + ", CC=" + CC + ", Brand=" + Brand + ", Model=" + Model + ", Mileage=" + Mileage + ", details=" + details + '}';
+    }
+    
 }
