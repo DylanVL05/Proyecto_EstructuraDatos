@@ -1,6 +1,8 @@
 package Vehiculo;
 
-public enum Tipo {
+import java.io.Serializable;
+
+public enum Tipo implements Serializable {
     SUV("SUV"),
     SEDAN("SEDAN"),
     HATCHBACK("HATCHBACK");
