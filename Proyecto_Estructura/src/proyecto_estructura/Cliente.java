@@ -164,8 +164,11 @@ public class Cliente implements Serializable{
         
     }
     
-    Gestion_Clientes.listarClientesRegistrados();
     
+    
+    
+    Gestion_Clientes.listarClientesRegistrados();
+    Gestion_Clientes.actualizarClientePorId();
     
     
 }
