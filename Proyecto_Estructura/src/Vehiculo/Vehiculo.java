@@ -1,15 +1,10 @@
 package Vehiculo;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Vehiculo implements Serializable {
 
+    private String id;
     private String color;
     private String year;
     private String CC;
@@ -17,9 +12,11 @@ public class Vehiculo implements Serializable {
     private String Model;
     private String Mileage;
     private String details;
-    //private Cliente cliente;
+    private String cliente;
+    private String estado;
     //private Vendedor vendedor;
-    public static void main(String[] args) {
+
+    /* public static void main(String[] args) {
         Vehiculo vehiculo = new Vehiculo();
         vehiculo.setColor("Negro");
         vehiculo.setBrand(Tipo.SEDAN);
@@ -37,43 +34,11 @@ public class Vehiculo implements Serializable {
         System.out.println(vehiculos[0].toString());
         System.out.println(vehiculos[1].toString());
         
-    }
+    }*/
     public Vehiculo() {
-        
-        
-    }
-    public static boolean GuardarVehiculos(Vehiculo[] vehiculos){
-          try {
-            String filename = "vehiculo.DYLAN"; //Nombre archivo.extension
-            FileOutputStream fileOut = new FileOutputStream(filename);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(vehiculos);
-            out.close();
-            fileOut.close();
-            File file = new File(filename);
-            String absolutePath = file.getAbsolutePath();
-            System.out.println("File saved at: " + absolutePath);
-            System.out.println("Vehiculo object has been serialized and saved to " + filename + ":");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return true;
-    }
-    public static Vehiculo[] leerVehiculos(){
-        try {
-            String filename = "vehiculo.DYLAN";  
-            FileInputStream fileIn = new FileInputStream(filename);
-            ObjectInputStream in = new ObjectInputStream(fileIn);
 
-            Vehiculo[] vehiculos = (Vehiculo[]) in.readObject();
-            in.close();
-            fileIn.close();
-            return vehiculos;
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
+
     public Vehiculo(String color, String year, String CC, Tipo Brand, String Model, String Mileage, String details) {
         this.color = color;
         this.year = year;
@@ -83,6 +48,7 @@ public class Vehiculo implements Serializable {
         this.Mileage = Mileage;
         this.details = details;
     }
+
     public String getColor() {
         return color;
     }
@@ -140,8 +106,41 @@ public class Vehiculo implements Serializable {
     }
 
     @Override
+
     public String toString() {
-        return "Vehiculo{" + "color=" + color + ", year=" + year + ", CC=" + CC + ", Brand=" + Brand + ", Model=" + Model + ", Mileage=" + Mileage + ", details=" + details + '}';
+        return "Carro #: " + id
+                + ", Color: " + color
+                + ", Año: " + year
+                + ", Cilindrada: " + CC
+                + ", Marca: " + Brand.getTipo()
+                + ", Modelo: " + Model
+                + ", Kilometraje: " + Mileage
+                + ", Detalles: " + details
+                + ", Cliente: " + cliente
+                + ", Estado: " + estado;
     }
-    
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 }
