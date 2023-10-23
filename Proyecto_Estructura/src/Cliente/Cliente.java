@@ -26,6 +26,13 @@ public class Cliente implements Serializable{
         this.tel = tel;
     }
 
+    public Cliente() {
+    }
+
+    
+    
+    
+    
     public String getNombre() {
         return nombre;
     }
