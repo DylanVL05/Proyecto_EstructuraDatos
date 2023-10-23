@@ -46,7 +46,7 @@ public class ModuloVehiculos {
                                 }
                                 break;
                             case 1:// Mostrar
-                               JOptionPane.showMessageDialog(null, listarVehiculos());
+                                JOptionPane.showMessageDialog(null, listarVehiculos());
                                 break;
                             case 2: // Modificar
                                 String id = JOptionPane.showInputDialog("Ingrese el ID del vehículo a modificar (o deje en blanco para cancelar):");
@@ -170,7 +170,7 @@ public class ModuloVehiculos {
     public static String listarVehiculos() {
         String salida = "";
         ListaVehiculos l = ListaVehiculos.leerVehiculos();
-        if (l != null && l.getCabeza()!=null) {
+        if (l != null && l.getCabeza() != null) {
             salida = l.toString();
         } else {
             salida = "No hay vehiculos disponibles...";
