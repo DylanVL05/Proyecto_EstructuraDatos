@@ -26,9 +26,11 @@ public class ListaVehiculos implements Serializable {
         }
         return str;
     }
-    public Nodo getCabeza(){
-    return cabeza;
+
+    public Nodo getCabeza() {
+        return cabeza;
     }
+
     public void elimina(String id) {
         if (cabeza == null) {
             return;
@@ -248,7 +250,7 @@ public class ListaVehiculos implements Serializable {
     public static ListaVehiculos leerVehiculos() {
         String filename = "listaVehiculos.sat";
 
-        try (FileInputStream fileIn = new FileInputStream(filename); ObjectInputStream in = new ObjectInputStream(fileIn)) {   
+        try (FileInputStream fileIn = new FileInputStream(filename); ObjectInputStream in = new ObjectInputStream(fileIn)) {
             ObjectStreamClass osc = ObjectStreamClass.lookup(ListaVehiculos.class);
             ListaVehiculos li = (ListaVehiculos) in.readObject();
 
