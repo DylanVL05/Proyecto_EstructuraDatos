@@ -104,7 +104,6 @@ public class ModuloReportes {
                     InformacionEmpresa.mostrarInformacionEnDialogo();
                     break;  
                 case 6:
-                    
                     return;    
                 default:
                     JOptionPane.showMessageDialog(null, "Opción no válida.", "Error", JOptionPane.ERROR_MESSAGE);

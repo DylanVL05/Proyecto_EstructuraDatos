@@ -4,6 +4,7 @@
  */
 package proyecto_estructura;
 
+import Usuario.Usuario;
 import Vehiculo.*;
 import javax.swing.JOptionPane;
 
@@ -13,11 +14,11 @@ import javax.swing.JOptionPane;
  */
 public class ModuloVehiculos {
 
-    public static void main(String[] args) {
+    /*  public static void main(String[] args) {
         EjecutarModulo();
     }
-
-    public static void EjecutarModulo() {
+     */
+    public static void EjecutarModulo(Usuario user) {
         String[] opciones = {"Mantenimiento de Vehículos", "Venta de Vehículos", "Mostrar información de la empresa", "Salir"};
         while (true) {
             int seleccion = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Menú Principal", 0, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
@@ -82,9 +83,7 @@ public class ModuloVehiculos {
                     InformacionEmpresa.mostrarInformacionEnDialogo();
                     break;
                 case 3:
-                    JOptionPane.showMessageDialog(null, "Saliendo del programa.", "Salir", JOptionPane.INFORMATION_MESSAGE);
-                    System.exit(0);
-                    break;
+                    return;
                 default:
                     JOptionPane.showMessageDialog(null, "Opción no válida.", "Error", JOptionPane.ERROR_MESSAGE);
                     break;

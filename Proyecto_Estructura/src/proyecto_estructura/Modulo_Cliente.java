@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
  */
 public class Modulo_Cliente {
 
-  
     public static Cliente crearCliente() {
 
         String nombre = JOptionPane.showInputDialog("Ingrese el nombre del cliente:");
@@ -41,81 +40,66 @@ public class Modulo_Cliente {
         return salida;
     }
 
- public static void EjecutarModulo() {
-    String[] opciones = {"Crear Cliente", "Modificar Cliente", "Listar Clientes", "Eliminar Cliente", "Salir"};
+    public static void EjecutarModulo() {
+        String[] opciones = {"Crear Cliente", "Modificar Cliente", "Listar Clientes", "Eliminar Cliente", "Salir"};
 
-    while (true) {
-        int seleccion = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Menú Clientes", 0,
-                JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+        while (true) {
+            int seleccion = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Menú Clientes", 0,
+                    JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
 
-        switch (seleccion) {
-            case 0:
-                // Crear Cliente
-                Cliente cliente = crearCliente();
-                if (cliente != null) {
-                    Lista_Clientes l = Lista_Clientes.leerClientes();
-                    if (l == null) {
-                        l = new Lista_Clientes();
+            switch (seleccion) {
+                case 0:
+                    // Crear Cliente
+                    Cliente cliente = crearCliente();
+                    if (cliente != null) {
+                        Lista_Clientes l = Lista_Clientes.leerClientes();
+                        if (l == null) {
+                            l = new Lista_Clientes();
+                        }
+                        l.insertar(cliente);
+                        Lista_Clientes.guardarClientes(l);
+                        JOptionPane.showMessageDialog(null, "Se ha creado un nuevo cliente");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Se canceló la operación");
                     }
-                    l.insertar(cliente);
-                    Lista_Clientes.guardarClientes(l);
-                    JOptionPane.showMessageDialog(null, "Se ha creado un nuevo cliente");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Se canceló la operación");
-                }
-                break;
-            case 1:
-                // Modificar Cliente
-                String id = JOptionPane.showInputDialog("Ingrese el ID del cliente a modificar (o deje en blanco para cancelar):");
-                if (id != null && !id.isEmpty()) {
-                    Lista_Clientes li = Lista_Clientes.leerClientes();
-                    li.modificar(id);
-                    Lista_Clientes.guardarClientes(li);
-                }
-                break;
-            case 2:
-                // Listar Clientes
-                JOptionPane.showMessageDialog(null, listarClientes());
-                break;
-            case 3:
-                // Salir
-               
-                String id2 = JOptionPane.showInputDialog("Ingrese el ID del vehículo a eliminar (o deje en blanco para cancelar):");
-                                if (id2 != null && !id2.isEmpty()) {
-                                    Lista_Clientes li2 = Lista_Clientes.leerClientes();
-                                    li2.eliminar(id2);
-                                    Lista_Clientes.guardarClientes(li2);
-                
-                
-                
-                
-                                }
-                break;
-                                
-                
-            case 4:
-                
-                
-                System.exit(0); 
-                
-                
-                break;
-            default:
-                JOptionPane.showMessageDialog(null, "Opción no válida.", "Error", JOptionPane.ERROR_MESSAGE);
-                break;
+                    break;
+                case 1:
+                    // Modificar Cliente
+                    String id = JOptionPane.showInputDialog("Ingrese el ID del cliente a modificar (o deje en blanco para cancelar):");
+                    if (id != null && !id.isEmpty()) {
+                        Lista_Clientes li = Lista_Clientes.leerClientes();
+                        li.modificar(id);
+                        Lista_Clientes.guardarClientes(li);
+                    }
+                    break;
+                case 2:
+                    // Listar Clientes
+                    JOptionPane.showMessageDialog(null, listarClientes());
+                    break;
+                case 3:
+                    // Salir
+
+                    String id2 = JOptionPane.showInputDialog("Ingrese el ID del vehículo a eliminar (o deje en blanco para cancelar):");
+                    if (id2 != null && !id2.isEmpty()) {
+                        Lista_Clientes li2 = Lista_Clientes.leerClientes();
+                        li2.eliminar(id2);
+                        Lista_Clientes.guardarClientes(li2);
+
+                    }
+                    break;
+
+                case 4:
+                    return;
+                default:
+                    JOptionPane.showMessageDialog(null, "Opción no válida.", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+            }
         }
     }
-}
-
- 
-    
-
-    
 
     public static void main(String[] args) {
         EjecutarModulo();
 
     }
 
-    
 }
