@@ -16,7 +16,7 @@ public class Usuario {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.identificacion = identificacion;
-        this.correo = correo;
+        this.correo = correo; 
         this.numero_telefono = numero;
         this.contrasena = contrasena;
     }
