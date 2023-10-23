@@ -15,25 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class Modulo_Cliente {
 
-    /*
-    public static void crearCliente(Lista_Clientes listaClientes) {
-        String nombre = JOptionPane.showInputDialog("Ingrese el nombre del cliente:");
-        String apellidos = JOptionPane.showInputDialog("Ingrese los apellidos del cliente:");
-        String identificacion = JOptionPane.showInputDialog("Ingrese la identificación del cliente:");
-        String correo = JOptionPane.showInputDialog("Ingrese el correo del cliente:");
-        String tel = JOptionPane.showInputDialog("Ingrese el teléfono del cliente:");
-
-        // Verificar si la identificación ya está ocupada
-        if (listaClientes.existe(identificacion)) {
-            JOptionPane.showMessageDialog(null, "La identificación ya está ocupada por otro cliente. No se pudo crear el cliente.");
-        } else {
-            Cliente nuevoCliente = new Cliente(nombre, apellidos, identificacion, correo, tel);
-            listaClientes.insertar(nuevoCliente);
-            Lista_Clientes.guardarClientes(listaClientes);
-            JOptionPane.showMessageDialog(null, "Cliente creado exitosamente: " + nuevoCliente);
-        }
-    }
-     */
+  
     public static Cliente crearCliente() {
 
         String nombre = JOptionPane.showInputDialog("Ingrese el nombre del cliente:");
@@ -60,7 +42,7 @@ public class Modulo_Cliente {
     }
 
  public static void EjecutarModulo() {
-    String[] opciones = {"Crear Cliente", "Modificar Cliente", "Listar Clientes", "Salir"};
+    String[] opciones = {"Crear Cliente", "Modificar Cliente", "Listar Clientes", "Eliminar Cliente", "Salir"};
 
     while (true) {
         int seleccion = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Menú Clientes", 0,
@@ -97,7 +79,26 @@ public class Modulo_Cliente {
                 break;
             case 3:
                 // Salir
-                System.exit(0);
+               
+                String id2 = JOptionPane.showInputDialog("Ingrese el ID del vehículo a eliminar (o deje en blanco para cancelar):");
+                                if (id2 != null && !id2.isEmpty()) {
+                                    Lista_Clientes li2 = Lista_Clientes.leerClientes();
+                                    li2.eliminar(id2);
+                                    Lista_Clientes.guardarClientes(li2);
+                
+                
+                
+                
+                                }
+                break;
+                                
+                
+            case 4:
+                
+                
+                System.exit(0); 
+                
+                
                 break;
             default:
                 JOptionPane.showMessageDialog(null, "Opción no válida.", "Error", JOptionPane.ERROR_MESSAGE);
