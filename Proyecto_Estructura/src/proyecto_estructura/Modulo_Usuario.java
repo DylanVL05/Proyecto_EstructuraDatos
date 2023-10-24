@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package proyecto_estructura;
+
 import Usuario.*;
 import Usuario.Lista_Usuario;
 /**
@@ -49,18 +50,18 @@ public class Modulo_Usuario {
                 case 0:
                     // Crear Usuario
                     try {
-                        Usuario usuario = crearUsuario(Lista_Usuario.leerUsuarios());
-                        Lista_Usuario listaUsuarios = Lista_Usuario.leerUsuarios();
-                        if (listaUsuarios == null) {
-                            listaUsuarios = new Lista_Usuario();
-                        }
-                        listaUsuarios.insertar(usuario);
-                        Lista_Usuario.guardarUsuario(listaUsuarios);
-                        JOptionPane.showMessageDialog(null, "Se ha creado un nuevo usuario");
-                    } catch (IllegalArgumentException e) {
-                        JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    Usuario usuario = crearUsuario(Lista_Usuario.leerUsuarios());
+                    Lista_Usuario listaUsuarios = Lista_Usuario.leerUsuarios();
+                    if (listaUsuarios == null) {
+                        listaUsuarios = new Lista_Usuario();
                     }
-                    break;
+                    listaUsuarios.insertar(usuario);
+                    Lista_Usuario.guardarUsuario(listaUsuarios);
+                    JOptionPane.showMessageDialog(null, "Se ha creado un nuevo usuario");
+                } catch (IllegalArgumentException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
                 case 1:
                     // Modificar Usuario
                     String id = JOptionPane.showInputDialog("Ingrese el ID del usuario a modificar (o deje en blanco para cancelar):");
@@ -84,9 +85,7 @@ public class Modulo_Usuario {
                     }
                     break;
                 case 4:
-                    // Salir
-                    System.exit(0);
-                    break;
+                    return;
                 default:
                     JOptionPane.showMessageDialog(null, "Opción no válida.", "Error", JOptionPane.ERROR_MESSAGE);
                     break;
@@ -94,7 +93,7 @@ public class Modulo_Usuario {
         }
     }
 
-    public static void main(String[] args) {
+    /*  public static void main(String[] args) {
         EjecutarModulo();
-    }
+    }*/
 }

@@ -82,7 +82,6 @@ import javax.swing.JOptionPane;
     }
 
          */
-
         public void insertar(Cliente cliente) {
             String ultimoID = obtenerUltimoID();
             String nuevoID = generarNuevoID(ultimoID);

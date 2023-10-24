@@ -4,23 +4,21 @@
  */
 package Usuario;
 
+import java.io.Serializable;
+
 /**
  *
  * @author andro
  */
-public class NodoUsuario {
-    
-    
+public class NodoUsuario  implements Serializable {
     private Usuario dato;
-    
     private NodoUsuario siguiente;
 
-    public NodoUsuario(Usuario usuario) {
-        this.dato = usuario;
+    public NodoUsuario(Usuario cliente) {
+        this.dato = cliente;
         this.siguiente = null;
     }
-
-
+ 
     public Usuario getDato() {
         return dato;
     }
@@ -36,20 +34,9 @@ public class NodoUsuario {
     public void setSiguiente(NodoUsuario siguiente) {
         this.siguiente = siguiente;
     }
-    
-    
-     @Override
+
+    @Override
     public String toString() {
         return dato.toString();
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

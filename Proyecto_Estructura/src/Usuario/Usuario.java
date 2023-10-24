@@ -4,11 +4,13 @@
  */
 package Usuario;
 
+import java.io.Serializable;
+
 /**
  *
  * @author andro
  */
-public class Usuario {
+public class Usuario  implements Serializable {
     
     private String nombre, apellidos , identificacion , correo , numero_telefono, contrasena;
 
