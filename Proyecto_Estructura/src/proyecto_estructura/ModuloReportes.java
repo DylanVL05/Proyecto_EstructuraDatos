@@ -20,28 +20,35 @@ public class ModuloReportes {
     
     public static void EjecutarModulo(){  
         
-        String[] opciones = {"Cantidad de autos", "Clientes","Top 3 clientes","Ventas por vendedor",
-            "Reservas por vendedor", "Mostrar información de la empresa", "Volver al menu principal"};
-        while (true) {
-            int seleccion = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Reportes", 0, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
-
-            switch (seleccion) {
-                case 0: //cantidad de vehiculos
-                    int submenuSeleccion = -1; // Inicializa la selección del submenú con un valor no válido
+        int op=0;        
+        do{
+            String menu="";
+            menu+="1.- Cantidad de autos \n";
+            menu+="2.- Clientes \n";
+            menu+="3.- Top 3 clientes \n";
+            menu+="4.- Ventas por vendedor \n";
+            menu+="5.- Reservas por vendedor \n";
+            menu+="6.- Mostrar información de la empresa \n";
+            menu+="7.- Volver al menu principal \n";
+            menu+="Elija una opción";
+            
+            op=Integer.parseInt(JOptionPane.showInputDialog(menu));
+            switch(op){
+            case 1: //cantidad de vehiculos
+                int submenuSeleccion = -1; // Inicializa la selección del submenú con un valor no válido
 
                     while (submenuSeleccion != 4) { // Continúa hasta que el usuario seleccione "Volver"
                         String[] submenuOpciones = {"Vehiculos vendidos", "Vehiculos reservados", "Vehiculos disponibles","Mostrar información de la empresa", "Volver"};
                         submenuSeleccion = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Cantidad total de vehiculos", 0, JOptionPane.QUESTION_MESSAGE, null, submenuOpciones, submenuOpciones[0]);
-
                         switch (submenuSeleccion) {
                             case 0: // Vehiculos vendidos
                               ListaVehiculos vendidos=ListaVehiculos.leerVehiculos();
-                              vendidos.getCabeza().getDato().getEstado();
+                             vendidos.getCabeza().getDato().getEstado();
                               
                                 break;
                             case 1:// Vehiculos reservados
-                                ListaVehiculos reservados=ListaVehiculos.leerVehiculos();
-                                
+                               ListaVehiculos reservados=ListaVehiculos.leerVehiculos();
+                               
                                
                                 break;
                             case 2: // Vehiculos disponibles
@@ -51,12 +58,11 @@ public class ModuloReportes {
                                 InformacionEmpresa.mostrarInformacionEnDialogo();
                                 break;
                             case 4: // Salir
-                                break;
+                                return;
                         }
                     }
-
-                    break;
-                case 1:  //Clientes
+                
+            case 2: //Clientes
                     int submenuSeleccion1 = -1; // Inicializa la selección del submenú con un valor no válido
 
                     while (submenuSeleccion1 != 4) { // Continúa hasta que el usuario seleccione "Volver"
@@ -86,31 +92,32 @@ public class ModuloReportes {
                                 break;
                         }
                     }
-                    break;
-                case 2: //Top 3 clientes
+                
+                break;
+               case 3: //Top 3 clientes
                     ListaVehiculos top=ListaVehiculos.leerVehiculos();
                     top.getCabeza().getDato().getCliente();
                     
                     break;
-                case 3: //Ventas por vendedor
+                case 4: //Ventas por vendedor
                     //esto va con el modulo de Login
                     
                     break;
-                case 4:  //Reservas por vendedor
+                case 5:  //Reservas por vendedor
                     //esto va con el modulo de Login
                     
                     break;                  
-                case 5:
-                    InformacionEmpresa.mostrarInformacionEnDialogo();
-                    break;  
                 case 6:
+                    InformacionEmpresa.mostrarInformacionEnDialogo();
+                    break; 
+                case 7:
                     
                     return;    
                 default:
                     JOptionPane.showMessageDialog(null, "Opción no válida.", "Error", JOptionPane.ERROR_MESSAGE);
-                    break;
+                    break;    
             }
-        }
+        }while(op!=8);
     }
         
         
