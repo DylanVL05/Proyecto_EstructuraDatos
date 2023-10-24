@@ -250,7 +250,7 @@ public class Lista_Usuario implements Serializable {
             nodoAux = nodoAux.getSiguiente();
         }
 
-        System.out.println("Cliente no encontrado con Identificación: " + identificacion);
+        System.out.println("Usuario no encontrado con Identificación: " + identificacion);
         return cliente;
     }
 }
