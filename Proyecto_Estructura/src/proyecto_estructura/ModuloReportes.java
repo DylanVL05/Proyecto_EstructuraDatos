@@ -1,11 +1,13 @@
- package proyecto_estructura;
+package proyecto_estructura;
 
 import Cliente.Lista_Clientes;
 import Vehiculo.ListaVehiculos;
 import javax.swing.JOptionPane;
 import Vehiculo.ListaVehiculos;
+import Vehiculo.Nodo;
 import javax.swing.JOptionPane;
 import proyecto_estructura.InformacionEmpresa;
+
 
 /**
  *
@@ -43,26 +45,53 @@ public class ModuloReportes {
                         submenuSeleccion = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Cantidad total de vehiculos", 0, JOptionPane.QUESTION_MESSAGE, null, submenuOpciones, submenuOpciones[0]);
                         switch (submenuSeleccion) {
                             case 0: // Vehiculos vendidos
-                              ListaVehiculos vendidos=ListaVehiculos.leerVehiculos();
-                       //      vendidos.getCabeza().getDato().getEstado();
+                              ListaVehiculos vendidos=ListaVehiculos.leerVehiculos();                       
                               if (vendidos.getCabeza().getDato().getEstado() == null) {
                                     System.out.println("La lista está vacía.");
-                                 return;
-                                }if (vendidos.getCabeza().getDato().getEstado() == "Vendido"){
-                                    System.out.println();
-                                }
-                                    
+                                 
+                                }else{
+                               
+                                        StringBuilder vehiculosVendidos = new StringBuilder();
+                                        Nodo aux = vendidos.getCabeza();
+
+                                        while (aux != null) {
+                                            if (aux.getDato().getEstado().equals("Vendido")) {
+                                                vehiculosVendidos.append("Modelo: ").append(aux.getDato().getModel()).append(", Estado: ").append(aux.getDato().getEstado()).append("\n");
+                                            }
+                                            aux = aux.getSiguiente();
+                                        }
+
+                                        if (vehiculosVendidos.length() > 0) {
+                                            JOptionPane.showMessageDialog(null, "Vehículos Vendidos:\n" + vehiculosVendidos.toString());
+                                        } else {
+                                            JOptionPane.showMessageDialog(null, "No hay vehículos vendidos.");
+                                        }
+                                                                  
+                              }
                               
                                 break;
                             case 1:// Vehiculos reservados
                                ListaVehiculos reservados=ListaVehiculos.leerVehiculos();
                                 if (reservados.getCabeza().getDato().getEstado() == null) {
                                     System.out.println("La lista está vacía.");
-                                 return;
-                                }if (reservados.getCabeza().getDato().getEstado() == "Reservado"){
-                                    System.out.println();
+                                 
+                                }  else{
+                                StringBuilder vehiculosReservados = new StringBuilder();
+                                        Nodo aux = reservados.getCabeza();
+
+                                        while (aux != null) {
+                                            if (aux.getDato().getEstado().equals("Reservado")) {
+                                                vehiculosReservados.append("Modelo: ").append(aux.getDato().getModel()).append(", Estado: ").append(aux.getDato().getEstado()).append("\n");
+                                            }
+                                            aux = aux.getSiguiente();
+                                        }
+
+                                        if (vehiculosReservados.length() > 0) {
+                                            JOptionPane.showMessageDialog(null, "Vehículos Reservados:\n" + vehiculosReservados.toString());
+                                        } else {
+                                            JOptionPane.showMessageDialog(null, "No hay vehículos Reservados.");
+                                        }
                                 }
-                               
                               
              
                                 break;
@@ -70,12 +99,25 @@ public class ModuloReportes {
                                ListaVehiculos disponibles=ListaVehiculos.leerVehiculos();
                                 if (disponibles.getCabeza().getDato().getEstado() == null) {
                                     System.out.println("La lista está vacía.");
-                                 return;
-                                }if (disponibles.getCabeza().getDato().getEstado() == "Disponible"){
-                                    System.out.println();
+                                 
+                                }else{
+                                StringBuilder vehiculosDisponibles = new StringBuilder();
+                                        Nodo aux = disponibles.getCabeza();
+
+                                        while (aux != null) {
+                                            if (aux.getDato().getEstado().equals("Disponible")) {
+                                                vehiculosDisponibles.append("Modelo: ").append(aux.getDato().getModel()).append(", Estado: ").append(aux.getDato().getEstado()).append("\n");
+                                            }
+                                            aux = aux.getSiguiente();
+                                        }
+
+                                        if (vehiculosDisponibles.length() > 0) {
+                                            JOptionPane.showMessageDialog(null, "Vehículos Disponibles:\n" + vehiculosDisponibles.toString());
+                                        } else {
+                                            JOptionPane.showMessageDialog(null, "No hay vehículos Disponibles.");
+                                        }
                                 }
-                               
-                               
+
                                 break;            
                             case 3: // MostrarInfo
                                 InformacionEmpresa.mostrarInformacionEnDialogo();
@@ -102,10 +144,11 @@ public class ModuloReportes {
                                 
                                 if (clientes.getCabeza() == null) {
                                     System.out.println("La lista está vacía.");
-                                 return;
+                                 
                                 }else
                                 {
-                                    System.out.println(clientes.toString());
+                                     String clientesRegistrados = clientes.toString();
+                                    JOptionPane.showMessageDialog(null, "Clientes Registrados:\n" + clientesRegistrados);
                                 }                
                               
                                 break;
@@ -115,7 +158,7 @@ public class ModuloReportes {
                                 //implementar un conteins para que no se repita si un cliente compró varios vehiculos
                                 if (comprados.getCabeza().getDato().getCliente() == null) {
                                     System.out.println("La lista de clientes está vacía.");
-                                 return;
+                                 
                                 }else
                                 {
                                    
@@ -131,7 +174,7 @@ public class ModuloReportes {
                                 //implementar un conteins para que no se repita si un cliente compró varios vehiculos
                                 if (reservados.getCabeza().getDato().getEstado()== null) {
                                     System.out.println("La lista de clientes con reservas está vacía.");
-                                 return;
+                                 
                                 }else
                                 {
                                    
@@ -161,7 +204,7 @@ public class ModuloReportes {
                    ListaVehiculos top = ListaVehiculos.leerVehiculos();
                     if (top.getCabeza() == null) {
                          System.out.println("La lista está vacía.");
-                        return;
+                        
                               }
                   
                    
