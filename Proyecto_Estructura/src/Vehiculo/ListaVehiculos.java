@@ -11,6 +11,8 @@ import java.io.ObjectOutputStream;
 import java.io.ObjectStreamClass;
 import java.io.Serializable;
 import javax.swing.JOptionPane;
+import Cliente.*;
+import Usuario.*;
 
 public class ListaVehiculos implements Serializable {
 
@@ -25,6 +27,59 @@ public class ListaVehiculos implements Serializable {
             aux = aux.getSiguiente();
         }
         return str;
+    }
+
+    public void VenderVehiculo(String id, Usuario vendedor) {
+        Nodo nodoAux = cabeza;
+        while (nodoAux != null) {
+            if (nodoAux.getDato().getId().equals(id)) {
+                if (nodoAux.getDato().getEstado().equals("Disponible")) {
+                    String[] options = {"Reservar vehículo", "Vender vehículo"};
+                    int choice = JOptionPane.showOptionDialog(null, "Seleccione una opción:",
+                            "Opciones", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+                    String opt = "";
+                    switch (choice) {
+                        case 0:
+                            opt = "Reservado";
+                            break;
+                        case 1:
+                            opt = "Vendido";
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(null, "Opción no válida", "Error", JOptionPane.ERROR_MESSAGE);
+                            break;
+                    }
+                    Lista_Clientes l = Lista_Clientes.leerClientes();
+                    if (l == null) {
+                        l = new Lista_Clientes();
+                    }
+                    NodoCliente ClientesNodo = l.getCabeza();
+                    String nombCliente = JOptionPane.showInputDialog(l.toString() + "\nIngrese el ID del cliente:");
+                    while (ClientesNodo != null) {
+                        if (ClientesNodo.getDato().getID().equals(nombCliente)) {
+                            Vehiculo v = nodoAux.getDato();
+                            v.setEstado(opt);
+                            v.setCliente(ClientesNodo.getDato().getNombre());
+                            if ("Reservado".equals(opt)) {
+                                ClientesNodo.getDato().setCarrosReservados(ClientesNodo.getDato().getCarrosReservados() + 1);
+                            } else {
+                                ClientesNodo.getDato().setCarrosComprados(ClientesNodo.getDato().getCarrosComprados() + 1);
+                            }
+                            nodoAux.setDato(v);
+                            
+                            return;
+                        }
+                        ClientesNodo = ClientesNodo.getSiguiente();
+                    }
+                    JOptionPane.showMessageDialog(null, "Cliente con ID:" + nombCliente + " no encontrado");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No es posible vender el vehiculo, su dueño es:" + nodoAux.getDato().getCliente());
+                }
+            }
+            nodoAux = nodoAux.getSiguiente();
+        }
+
+        System.out.println("Nodo con ID " + id + " no encontrado en la lista.");
     }
 
     public Nodo getCabeza() {
@@ -59,70 +114,75 @@ public class ListaVehiculos implements Serializable {
         Nodo nodoAux = cabeza;
         while (nodoAux != null) {
             if (nodoAux.getDato().getId().equals(id)) {
-                int opcion = 0;
-                while (opcion != 8) {
-                    String menu = "Menú de Modificación de Propiedades del Vehículo\n"
-                            + "1. Modificar color\n"
-                            + "2. Modificar año\n"
-                            + "3. Modificar CC\n"
-                            + "4. Modificar modelo\n"
-                            + "5. Modificar kilometraje\n"
-                            + "6. Modificar detalles\n"
-                            + "7. Modificar marca\n"
-                            + "8. Salir\n"
-                            + "Seleccione una opción:";
+                if (nodoAux.getDato().getEstado().equals("Disponible")) {
+                    int opcion = 0;
+                    while (opcion != 8) {
+                        String menu = "Menú de Modificación de Propiedades del Vehículo\n"
+                                + "1. Modificar color\n"
+                                + "2. Modificar año\n"
+                                + "3. Modificar CC\n"
+                                + "4. Modificar modelo\n"
+                                + "5. Modificar kilometraje\n"
+                                + "6. Modificar detalles\n"
+                                + "7. Modificar marca\n"
+                                + "8. Salir\n"
+                                + "Seleccione una opción:";
 
-                    try {
-                        opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
-                    } catch (NumberFormatException e) {
-                        opcion = 0;
+                        try {
+                            opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
+                        } catch (NumberFormatException e) {
+                            opcion = 0;
+                        }
+
+                        switch (opcion) {
+                            case 1:
+                                String newColor = JOptionPane.showInputDialog("Nuevo color:");
+                                nodoAux.getDato().setColor(newColor);
+                                break;
+                            case 2:
+                                String newYear = JOptionPane.showInputDialog("Nuevo año:");
+                                nodoAux.getDato().setYear(newYear);
+                                break;
+                            case 3:
+                                String newCC = JOptionPane.showInputDialog("Nuevo CC:");
+                                nodoAux.getDato().setCC(newCC);
+                                break;
+                            case 4:
+                                String newModel = JOptionPane.showInputDialog("Nuevo modelo:");
+                                nodoAux.getDato().setModel(newModel);
+                                break;
+                            case 5:
+                                String newMileage = JOptionPane.showInputDialog("Nuevo kilometraje:");
+                                nodoAux.getDato().setMileage(newMileage);
+                                break;
+                            case 6:
+                                String newDetails = JOptionPane.showInputDialog("Nuevos detalles:");
+                                nodoAux.getDato().setDetails(newDetails);
+                                break;
+                            case 7:
+                                String[] marcas = {Tipo.HATCHBACK.getTipo(), Tipo.SEDAN.getTipo(), Tipo.SUV.getTipo()};
+                                int marcaChoice = JOptionPane.showOptionDialog(null, "Seleccione una marca:", "Marca", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, marcas, marcas[0]);
+
+                                if (marcaChoice >= 0 && marcaChoice < marcas.length) {
+                                    nodoAux.getDato().setBrand(Tipo.valueOf(marcas[marcaChoice]));
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Marca no válida.", "Error", JOptionPane.ERROR_MESSAGE);
+                                }
+                                break;
+                            case 8:
+                                JOptionPane.showMessageDialog(null, "Vehículo actualizado:\n" + nodoAux.getDato());
+                                break;
+                            default:
+                                JOptionPane.showMessageDialog(null, "Opción no válida.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+
                     }
 
-                    switch (opcion) {
-                        case 1:
-                            String newColor = JOptionPane.showInputDialog("Nuevo color:");
-                            nodoAux.getDato().setColor(newColor);
-                            break;
-                        case 2:
-                            String newYear = JOptionPane.showInputDialog("Nuevo año:");
-                            nodoAux.getDato().setYear(newYear);
-                            break;
-                        case 3:
-                            String newCC = JOptionPane.showInputDialog("Nuevo CC:");
-                            nodoAux.getDato().setCC(newCC);
-                            break;
-                        case 4:
-                            String newModel = JOptionPane.showInputDialog("Nuevo modelo:");
-                            nodoAux.getDato().setModel(newModel);
-                            break;
-                        case 5:
-                            String newMileage = JOptionPane.showInputDialog("Nuevo kilometraje:");
-                            nodoAux.getDato().setMileage(newMileage);
-                            break;
-                        case 6:
-                            String newDetails = JOptionPane.showInputDialog("Nuevos detalles:");
-                            nodoAux.getDato().setDetails(newDetails);
-                            break;
-                        case 7:
-                            String[] marcas = {Tipo.HATCHBACK.getTipo(), Tipo.SEDAN.getTipo(), Tipo.SUV.getTipo()};
-                            int marcaChoice = JOptionPane.showOptionDialog(null, "Seleccione una marca:", "Marca", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, marcas, marcas[0]);
-
-                            if (marcaChoice >= 0 && marcaChoice < marcas.length) {
-                                nodoAux.getDato().setBrand(Tipo.valueOf(marcas[marcaChoice]));
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Marca no válida.", "Error", JOptionPane.ERROR_MESSAGE);
-                            }
-                            break;
-                        case 8:
-                            JOptionPane.showMessageDialog(null, "Vehículo actualizado:\n" + nodoAux.getDato());
-                            break;
-                        default:
-                            JOptionPane.showMessageDialog(null, "Opción no válida.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-
+                    return;
+                } else {
+                    JOptionPane.showMessageDialog(null, "El vehiculo no está disponible");
+                    return;
                 }
-
-                return;
             }
             nodoAux = nodoAux.getSiguiente();
         }
@@ -214,7 +274,7 @@ public class ListaVehiculos implements Serializable {
         String nuevoID = generarNuevoID(ultimoID);
 
         pdato.setId(nuevoID);
-
+        pdato.setEstado("Disponible");
         Nodo nuevo = new Nodo(pdato);
         if (cabeza == null || pdato.getId().compareTo(cabeza.getDato().getId()) < 0) {
             nuevo.setSiguiente(cabeza);

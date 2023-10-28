@@ -35,8 +35,7 @@ public class NodoUsuario  implements Serializable {
         this.siguiente = siguiente;
     }
 
-    @Override
-    public String toString() {
-        return dato.toString();
+    public String toString(Usuario user) {
+        return dato.toString(user);
     }
 }

@@ -20,27 +20,36 @@ public class Modulo_Usuario {
         String identificacion = JOptionPane.showInputDialog("Ingrese la identificación del usuario:");
         String correo = JOptionPane.showInputDialog("Ingrese el correo del usuario:");
         String numero = JOptionPane.showInputDialog("Ingrese el número de teléfono del usuario:");
+        String pass1, pass2;
+        do {
+            pass1 = JOptionPane.showInputDialog("Ingrese la nueva contraseña:");
+            pass2 = JOptionPane.showInputDialog("Confirme la nueva contraseña:");
 
-        // Verificar si la identificación ya está ocupada
+            if (pass1.equals(pass2)) {
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden. Inténtelo de nuevo.");
+            }
+        } while (true);
         if (listaUsuarios.existe(identificacion)) {
             throw new IllegalArgumentException("La identificación ya está ocupada por otro usuario.");
         }
 
-        Usuario nuevoUsuario = new Usuario(nombre, apellidos, identificacion, correo, numero, correo);
+        Usuario nuevoUsuario = new Usuario(nombre, apellidos, identificacion, correo, numero, pass1);
         return nuevoUsuario;
     }
 
-    public static String listarUsuarios() {
+    public static String listarUsuarios(Usuario user) {
         Lista_Usuario listaUsuarios = Lista_Usuario.leerUsuarios();
         if (listaUsuarios != null && listaUsuarios.getCabeza() != null) {
-            return listaUsuarios.toString();
+            return listaUsuarios.toString(user);
         } else {
             return "No hay usuarios disponibles...";
         }
     }
 
-    public static void EjecutarModulo() {
-        String[] opciones = {"Crear Usuario", "Modificar Usuario", "Listar Usuarios", "Eliminar Usuario", "Salir"};
+    public static void EjecutarModulo(Usuario user) {
+        String[] opciones = {"Crear Usuario", "Modificar Usuario", "Listar Usuarios", "Eliminar Usuario", "Información de la Empresa", "Salir"};
 
         while (true) {
             int seleccion = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Menú Usuarios", 0,
@@ -48,8 +57,8 @@ public class Modulo_Usuario {
 
             switch (seleccion) {
                 case 0:
-                    // Crear Usuario
-                    try {
+                // Crear Usuario
+                try {
                     Usuario usuario = crearUsuario(Lista_Usuario.leerUsuarios());
                     Lista_Usuario listaUsuarios = Lista_Usuario.leerUsuarios();
                     if (listaUsuarios == null) {
@@ -73,7 +82,7 @@ public class Modulo_Usuario {
                     break;
                 case 2:
                     // Listar Usuarios
-                    JOptionPane.showMessageDialog(null, listarUsuarios());
+                    JOptionPane.showMessageDialog(null, listarUsuarios(user));
                     break;
                 case 3:
                     // Eliminar Usuario
@@ -85,6 +94,10 @@ public class Modulo_Usuario {
                     }
                     break;
                 case 4:
+                    // Información de la Empresa
+                    InformacionEmpresa.mostrarInformacionEnDialogo();
+                    break;
+                case 5:
                     return;
                 default:
                     JOptionPane.showMessageDialog(null, "Opción no válida.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -92,6 +105,7 @@ public class Modulo_Usuario {
             }
         }
     }
+
 
     /*  public static void main(String[] args) {
         EjecutarModulo();

@@ -1,9 +1,12 @@
 package proyecto_estructura;
+
 import Usuario.*;
 import Cliente.*;
 import Vehiculo.*;
 import javax.swing.JOptionPane;
+
 public class main {
+
     public static void main(String[] args) {
         Usuario Vendedor = ModuloLogin.login();
         String[] options = {"Usuarios", "Clientes", "Vehículos", "Garantías", "Informes", "Información", "Cancelar"};
@@ -12,7 +15,7 @@ public class main {
                     JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
             switch (choice) {
                 case 0: // Usuarios
-                    Modulo_Usuario.EjecutarModulo();
+                    Modulo_Usuario.EjecutarModulo(Vendedor);
                     break;
                 case 1: // Clientes
                     Modulo_Cliente.EjecutarModulo();

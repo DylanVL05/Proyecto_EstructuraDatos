@@ -4,20 +4,16 @@
  */
 package Cliente;
 
-
-
-
 import java.io.Serializable;
 
 /**
  *
  * @author andro
  */
-public class Cliente implements Serializable{
+public class Cliente implements Serializable {
 
- 
-     private String nombre, apellidos , identificacion , correo, tel ;
- 
+    private String nombre, apellidos, identificacion, correo, tel, ID;
+    private int carrosComprados, carrosReservados;
     public Cliente(String nombre, String apellidos, String identificacion, String correo, String tel) {
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -29,10 +25,6 @@ public class Cliente implements Serializable{
     public Cliente() {
     }
 
-    
-    
-    
-    
     public String getNombre() {
         return nombre;
     }
@@ -75,23 +67,32 @@ public class Cliente implements Serializable{
 
     @Override
     public String toString() {
-        return "Cliente{" + "nombre=" + nombre + ", apellidos=" + apellidos + ", identificacion=" + identificacion + ", correo=" + correo + ", tel=" + tel + '}';
+        return "ID: " + ID + ", Nombre: " + nombre + ", Apellidos: " + apellidos + ", Email: " + correo
+                + ", Identificación: " + identificacion + ", Teléfono: " + tel;
     }
 
- 
-        
-      
-      
-      
-      
-      
-      
-      
-      
-   
-         
-         
-    
-    
-    
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public int getCarrosComprados() {
+        return carrosComprados;
+    }
+
+    public void setCarrosComprados(int carrosComprados) {
+        this.carrosComprados = carrosComprados;
+    }
+
+    public int getCarrosReservados() {
+        return carrosReservados;
+    }
+
+    public void setCarrosReservados(int carrosReservados) {
+        this.carrosReservados = carrosReservados;
+    }
+
 }

@@ -17,12 +17,11 @@ public class Lista_Usuario implements Serializable {
 
     private NodoUsuario cabeza;
 
-    @Override
-    public String toString() {
+    public String toString(Usuario user) {
         String str = "";
         NodoUsuario aux = cabeza;
         while (aux != null) {
-            str += aux.toString() + "\n";
+            str += aux.toString(user) + "\n";
             aux = aux.getSiguiente();
         }
         return str;
@@ -45,14 +44,14 @@ public class Lista_Usuario implements Serializable {
             return;
         }
 
-        if (cabeza.getDato().getIdentificacion().equals(identificacion)) {
+        if (cabeza.getDato().getID().equals(identificacion)) {
             cabeza = cabeza.getSiguiente();
             return;
         }
 
         NodoUsuario nodoAux = cabeza;
         while (nodoAux.getSiguiente() != null) {
-            if (nodoAux.getSiguiente().getDato().getIdentificacion().equals(identificacion)) {
+            if (nodoAux.getSiguiente().getDato().getID().equals(identificacion)) {
                 nodoAux.setSiguiente(nodoAux.getSiguiente().getSiguiente());
                 return;
             }
@@ -66,15 +65,15 @@ public class Lista_Usuario implements Serializable {
         String ultimoID = obtenerUltimoID();
         String nuevoID = generarNuevoID(ultimoID);
 
-        usuario.setIdentificacion(nuevoID);
+        usuario.setID(nuevoID);
 
         NodoUsuario nuevo = new NodoUsuario(usuario);
-        if (cabeza == null || usuario.getIdentificacion().compareTo(cabeza.getDato().getIdentificacion()) < 0) {
+        if (cabeza == null || usuario.getID().compareTo(cabeza.getDato().getID()) < 0) {
             nuevo.setSiguiente(cabeza);
             this.cabeza = nuevo;
         } else {
             NodoUsuario aux = cabeza;
-            while (aux.getSiguiente() != null && usuario.getIdentificacion().compareTo(aux.getSiguiente().getDato().getIdentificacion()) >= 0) {
+            while (aux.getSiguiente() != null && usuario.getID().compareTo(aux.getSiguiente().getDato().getID()) >= 0) {
                 aux = aux.getSiguiente();
             }
             nuevo.setSiguiente(aux.getSiguiente());
@@ -127,10 +126,10 @@ public class Lista_Usuario implements Serializable {
     public boolean existe(String pId) {
         if (cabeza == null) {
             return false;
-        } else if (cabeza.getDato().getIdentificacion().equals(pId)) {
+        } else if (cabeza.getDato().getID().equals(pId)) {
             return true;
         } else {
-            int comparacion = pId.compareTo(cabeza.getDato().getIdentificacion());
+            int comparacion = pId.compareTo(cabeza.getDato().getID());
             if (comparacion < 0) {
                 return false;
             } else if (comparacion == 0) {
@@ -139,7 +138,7 @@ public class Lista_Usuario implements Serializable {
                 NodoUsuario aux = cabeza;
 
                 while (aux.getSiguiente() != null) {
-                    comparacion = pId.compareTo(aux.getSiguiente().getDato().getIdentificacion());
+                    comparacion = pId.compareTo(aux.getSiguiente().getDato().getID());
                     if (comparacion == 0) {
                         return true;
                     } else if (comparacion < 0) {
@@ -152,10 +151,10 @@ public class Lista_Usuario implements Serializable {
         }
     }
 
-    public void modificar(String identificacion) {
+    public void modificar(String id) {
         NodoUsuario nodoAux = cabeza;
         while (nodoAux != null) {
-            if (nodoAux.getDato().getIdentificacion().equals(identificacion)) {
+            if (nodoAux.getDato().getID().equals(id)) {
                 int opcion = 0;
                 while (opcion != 8) {
                     String menu = "Menú de Modificación de Propiedades del Cliente\n"
@@ -163,7 +162,9 @@ public class Lista_Usuario implements Serializable {
                             + "2. Modificar apellidos\n"
                             + "3. Modificar correo\n"
                             + "4. Modificar teléfono\n"
-                            + "5. Salir\n"
+                            + "5. Modificar contraseña\n"
+                            + "6. Modificar identificación\n"
+                            + "7. Salir\n"
                             + "Seleccione una opción:";
 
                     try {
@@ -190,28 +191,35 @@ public class Lista_Usuario implements Serializable {
                             nodoAux.getDato().setNumero(nuevoTelefono);
                             break;
                         case 5:
-                            JOptionPane.showMessageDialog(null, "Cliente actualizado:\n" + nodoAux.getDato());
+                            String nuevaPass = JOptionPane.showInputDialog("Nueva contraseña:");
+                            nodoAux.getDato().setContrasena(nuevaPass);
                             break;
+                        case 6:
+                            String identificacion = JOptionPane.showInputDialog("Nueva identificación:");
+                            nodoAux.getDato().setIdentificacion(identificacion);
+                            break;
+                        case 7:
+                            JOptionPane.showMessageDialog(null, "Cliente actualizado:\n" + nodoAux.getDato());
+                            return;
                         default:
                             JOptionPane.showMessageDialog(null, "Opción no válida.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
-                return;
             }
             nodoAux = nodoAux.getSiguiente();
         }
 
         // Si llegamos aquí, significa que no se encontró el cliente con la ID especificada.
-        System.out.println("Cliente con ID " + identificacion + " no encontrado en la lista.");
+        System.out.println("Cliente con ID " + id + " no encontrado en la lista.");
     }
 
     private String generarNuevoID(String ultimoID) {
         if (ultimoID == null) {
-            return "CLI-1"; // El primer cliente tendrá el ID CLI-1
+            return "USR-1";
         } else {
             int ultimoNumero = Integer.parseInt(ultimoID.split("-")[1]);
             int nuevoNumero = ultimoNumero + 1;
-            return "CLI-" + nuevoNumero;
+            return "USR-" + nuevoNumero;
         }
     }
 
@@ -220,7 +228,7 @@ public class Lista_Usuario implements Serializable {
         String ultimoID = null;
 
         while (aux != null) {
-            ultimoID = aux.getDato().getIdentificacion();
+            ultimoID = aux.getDato().getID();
             aux = aux.getSiguiente();
         }
 
@@ -228,29 +236,27 @@ public class Lista_Usuario implements Serializable {
     }
 
     public Usuario extraer(String identificacion) {
-        Usuario cliente = null;
+        Usuario usuario = null;
         if (cabeza == null) {
             System.out.println("No es posible extraer");
             return null;
-        }
-
-        if (cabeza.getDato().getIdentificacion().equals(identificacion)) {
-            cliente = cabeza.getDato();
+        } else if (cabeza.getDato().getIdentificacion().equals(identificacion)) {
+            usuario = cabeza.getDato();
             cabeza = cabeza.getSiguiente();
-            return cliente;
+            return usuario;
         }
 
         NodoUsuario nodoAux = cabeza;
         while (nodoAux.getSiguiente() != null) {
             if (nodoAux.getSiguiente().getDato().getIdentificacion().equals(identificacion)) {
-                cliente = nodoAux.getSiguiente().getDato();
+                usuario = nodoAux.getSiguiente().getDato();
                 nodoAux.setSiguiente(nodoAux.getSiguiente().getSiguiente());
-                return cliente;
+                return usuario;
             }
             nodoAux = nodoAux.getSiguiente();
         }
 
         System.out.println("Usuario no encontrado con Identificación: " + identificacion);
-        return cliente;
+        return usuario;
     }
 }

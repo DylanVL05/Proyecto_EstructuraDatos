@@ -14,10 +14,6 @@ import javax.swing.JOptionPane;
  */
 public class ModuloVehiculos {
 
-    /*  public static void main(String[] args) {
-        EjecutarModulo();
-    }
-     */
     public static void EjecutarModulo(Usuario user) {
         String[] opciones = {"Mantenimiento de Vehículos", "Venta de Vehículos", "Mostrar información de la empresa", "Salir"};
         while (true) {
@@ -74,12 +70,15 @@ public class ModuloVehiculos {
                     }
 
                     break;
-                case 1:
-                    // Agrega código para la opción de Venta de Vehículos aquí
-                    // Puedes mostrar un diálogo para gestionar la venta de vehículos.
+                case 1: //Vender vehiculo
+                    String venta = JOptionPane.showInputDialog(ListaVehiculos.leerVehiculos().toString() + "\nIngrese el ID del vehículo a vender:");
+                    if (venta != null && !venta.isEmpty()) {
+                        ListaVehiculos li2 = ListaVehiculos.leerVehiculos();
+                        li2.VenderVehiculo(venta, user);
+                        ListaVehiculos.guardarVehiculos(li2);
+                    }
                     break;
-
-                case 2:
+                case 2: //Info empresa
                     InformacionEmpresa.mostrarInformacionEnDialogo();
                     break;
                 case 3:
