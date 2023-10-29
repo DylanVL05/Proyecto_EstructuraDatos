@@ -15,18 +15,31 @@ import javax.swing.JOptionPane;
  */
 public class Modulo_Cliente {
 
-    public static Cliente crearCliente() {
+    public static Cliente crearCliente(Lista_Clientes listaClientes) {
+        try {
+            String nombre = JOptionPane.showInputDialog("Ingrese el nombre del cliente:");
+            String apellidos = JOptionPane.showInputDialog("Ingrese los apellidos del cliente:");
+            String identificacion;
 
-        String nombre = JOptionPane.showInputDialog("Ingrese el nombre del cliente:");
-        String apellidos = JOptionPane.showInputDialog("Ingrese los apellidos del cliente:");
-        String identificacion = JOptionPane.showInputDialog("Ingrese la identificación del cliente:");
-        String correo = JOptionPane.showInputDialog("Ingrese el correo del cliente:");
-        String tel = JOptionPane.showInputDialog("Ingrese el teléfono del cliente:");
+            while (true) {
+                identificacion = JOptionPane.showInputDialog("Ingrese la identificación del cliente:");
+                if (!listaClientes.existe_identificacion_CL(identificacion)) {
+                    break;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ya existe un cliente con esa identificación. Inténtelo de nuevo.");
+                }
+            }
 
-        Cliente nuevoCliente = new Cliente(nombre, apellidos, identificacion, correo, tel);
+            String correo = JOptionPane.showInputDialog("Ingrese el correo del cliente:");
+            String tel = JOptionPane.showInputDialog("Ingrese el teléfono del cliente:");
 
-        return nuevoCliente;
-
+            Cliente nuevoCliente = new Cliente(nombre, apellidos, identificacion, correo, tel);
+            return nuevoCliente;
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al crear el cliente.");
+            return null;
+        }
     }
 
     public static String listarClientes() {
@@ -46,23 +59,24 @@ public class Modulo_Cliente {
         while (true) {
             int seleccion = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Menú Clientes", 0,
                     JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+            Lista_Clientes listaClientes = Lista_Clientes.leerClientes();
+            if (listaClientes == null) {
+                listaClientes = new Lista_Clientes();
+            }
 
             switch (seleccion) {
                 case 0:
                     // Crear Cliente
-                    Cliente cliente = crearCliente();
+                    Cliente cliente = crearCliente(listaClientes);
                     if (cliente != null) {
-                        Lista_Clientes l = Lista_Clientes.leerClientes();
-                        if (l == null) {
-                            l = new Lista_Clientes();
-                        }
-                        l.insertar(cliente);
-                        Lista_Clientes.guardarClientes(l);
+                        listaClientes.insertar(cliente);
+                        Lista_Clientes.guardarClientes(listaClientes);
                         JOptionPane.showMessageDialog(null, "Se ha creado un nuevo cliente");
                     } else {
                         JOptionPane.showMessageDialog(null, "Se canceló la operación");
                     }
                     break;
+
                 case 1:
                     // Modificar Cliente
                     String id = JOptionPane.showInputDialog("Ingrese el ID del cliente a modificar (o deje en blanco para cancelar):");

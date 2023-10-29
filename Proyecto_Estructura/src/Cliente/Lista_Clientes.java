@@ -150,6 +150,39 @@ public class Lista_Clientes implements Serializable {
         }
     }
 
+    
+ public boolean existe_identificacion_CL(String identificacion) {
+    NodoCliente aux = cabeza;
+    while (aux != null) {
+        Cliente cliente = aux.getDato();
+        if (cliente != null && cliente.getIdentificacion() != null && cliente.getIdentificacion().equals(identificacion)) {
+            return true;
+        }
+        aux = aux.getSiguiente();
+    }
+    return false;
+}
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public void modificar(String id) {
         NodoCliente nodoAux = cabeza;
         while (nodoAux != null) {

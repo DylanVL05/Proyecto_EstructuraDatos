@@ -15,9 +15,22 @@ import javax.swing.JOptionPane;
 public class Modulo_Usuario {
 
     public static Usuario crearUsuario(Lista_Usuario listaUsuarios) {
+        
+       
+    try {
         String nombre = JOptionPane.showInputDialog("Ingrese el nombre del usuario:");
         String apellidos = JOptionPane.showInputDialog("Ingrese los apellidos del usuario:");
-        String identificacion = JOptionPane.showInputDialog("Ingrese la identificación del usuario:");
+        String identificacion;
+
+        while (true) {
+            identificacion = JOptionPane.showInputDialog("Ingrese la identificación del usuario:");
+            if (!listaUsuarios.existe_identificacion(identificacion)) {
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "Ya existe un usuario con esa identificación. Inténtelo de nuevo.");
+            }
+        }
+
         String correo = JOptionPane.showInputDialog("Ingrese el correo del usuario:");
         String numero = JOptionPane.showInputDialog("Ingrese el número de teléfono del usuario:");
         String pass1, pass2;
@@ -31,12 +44,20 @@ public class Modulo_Usuario {
                 JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden. Inténtelo de nuevo.");
             }
         } while (true);
-        if (listaUsuarios.existe(identificacion)) {
-            throw new IllegalArgumentException("La identificación ya está ocupada por otro usuario.");
-        }
 
         Usuario nuevoUsuario = new Usuario(nombre, apellidos, identificacion, correo, numero, pass1);
         return nuevoUsuario;
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Ha ocurrido un error al crear el usuario.");
+        return null;
+    }
+
+
+        
+        
+    
+        
     }
 
     public static String listarUsuarios(Usuario user) {
@@ -107,7 +128,14 @@ public class Modulo_Usuario {
     }
 
 
-    /*  public static void main(String[] args) {
-        EjecutarModulo();
-    }*/
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

@@ -151,6 +151,25 @@ public class Lista_Usuario implements Serializable {
         }
     }
 
+ public boolean existe_identificacion(String identificacion) {
+    NodoUsuario aux = cabeza;
+    while (aux != null) {
+        Usuario cliente = aux.getDato();
+        if (cliente != null && cliente.getIdentificacion() != null && cliente.getIdentificacion().equals(identificacion)) {
+            return true;
+        }
+        aux = aux.getSiguiente();
+    }
+    return false;
+}
+
+
+
+
+   
+    
+    
+    
     public void modificar(String id) {
         NodoUsuario nodoAux = cabeza;
         while (nodoAux != null) {
