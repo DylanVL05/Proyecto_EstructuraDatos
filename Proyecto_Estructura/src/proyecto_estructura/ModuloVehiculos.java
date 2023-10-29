@@ -71,7 +71,11 @@ public class ModuloVehiculos {
 
                     break;
                 case 1: //Vender vehiculo
-                    String venta = JOptionPane.showInputDialog(ListaVehiculos.leerVehiculos().toString() + "\nIngrese el ID del vehículo a vender:");
+                    ListaVehiculos li3 = ListaVehiculos.leerVehiculos();
+                    if (li3 == null) {
+                        li3 = new ListaVehiculos();
+                    }
+                    String venta = JOptionPane.showInputDialog(li3.toString() + "\nIngrese el ID del vehículo a vender:");
                     if (venta != null && !venta.isEmpty()) {
                         ListaVehiculos li2 = ListaVehiculos.leerVehiculos();
                         li2.VenderVehiculo(venta, user);

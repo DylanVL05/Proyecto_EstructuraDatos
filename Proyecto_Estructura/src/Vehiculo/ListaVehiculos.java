@@ -66,7 +66,7 @@ public class ListaVehiculos implements Serializable {
                                 ClientesNodo.getDato().setCarrosComprados(ClientesNodo.getDato().getCarrosComprados() + 1);
                             }
                             nodoAux.setDato(v);
-                            
+                            Lista_Clientes.guardarClientes(l);
                             return;
                         }
                         ClientesNodo = ClientesNodo.getSiguiente();
