@@ -67,6 +67,19 @@ public class ListaVehiculos implements Serializable {
                             }
                             nodoAux.setDato(v);
                             Lista_Clientes.guardarClientes(l);
+                            Lista_Usuario liU = Lista_Usuario.leerUsuarios();
+                            if (liU == null) {
+                                liU = new Lista_Usuario();
+                            }
+                            NodoUsuario AUX = liU.getCabeza();
+                            while (AUX != null) {
+                                if (AUX.getDato().getID().equals(vendedor.getID()) && AUX.getDato().getIdentificacion().equals(vendedor.getIdentificacion())) {
+                                    AUX.getDato().setCarrosVendidos(AUX.getDato().getCarrosVendidos() + 1);
+                                    Lista_Usuario.guardarUsuario(liU);
+                                    break;
+                                }
+                                AUX = AUX.getSiguiente();
+                            }
                             return;
                         }
                         ClientesNodo = ClientesNodo.getSiguiente();
@@ -291,7 +304,7 @@ public class ListaVehiculos implements Serializable {
 
     public static boolean guardarVehiculos(ListaVehiculos l) {
         try {
-            String filename = "listaVehiculos.sat"; // Nombre archivo.extension
+            String filename = "listaVehiculos.txt"; // Nombre archivo.extension
             FileOutputStream fileOut = new FileOutputStream(filename);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(l);
@@ -308,7 +321,7 @@ public class ListaVehiculos implements Serializable {
     }
 
     public static ListaVehiculos leerVehiculos() {
-        String filename = "listaVehiculos.sat";
+        String filename = "listaVehiculos.txt";
 
         try (FileInputStream fileIn = new FileInputStream(filename); ObjectInputStream in = new ObjectInputStream(fileIn)) {
             ObjectStreamClass osc = ObjectStreamClass.lookup(ListaVehiculos.class);

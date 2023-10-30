@@ -14,7 +14,7 @@ public class Vehiculo implements Serializable {
     private String details;
     private String cliente;
     private String estado;
-    //private Vendedor vendedor;
+    private String vendedor;
 
     /* public static void main(String[] args) {
         Vehiculo vehiculo = new Vehiculo();
@@ -142,5 +142,13 @@ public class Vehiculo implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(String vendedor) {
+        this.vendedor = vendedor;
     }
 }

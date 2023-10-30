@@ -83,7 +83,7 @@ public class Lista_Usuario implements Serializable {
 
     public static boolean guardarUsuario(Lista_Usuario listaClientes) {
         try {
-            String filename = "listaUsuarios.usr";
+            String filename = "listaUsuarios.txt";
             FileOutputStream fileOut = new FileOutputStream(filename);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(listaClientes);
@@ -101,7 +101,7 @@ public class Lista_Usuario implements Serializable {
     }
 
     public static Lista_Usuario leerUsuarios() {
-        String filename = "listaUsuarios.usr";
+        String filename = "listaUsuarios.txt";
 
         try (FileInputStream fileIn = new FileInputStream(filename); ObjectInputStream in = new ObjectInputStream(fileIn)) {
             ObjectStreamClass osc = ObjectStreamClass.lookup(Lista_Usuario.class);
