@@ -14,6 +14,7 @@ public class Usuario implements Serializable {
 
     private String nombre, apellidos, identificacion, correo, numero_telefono, contrasena, ID;
     private int carrosVendidos;
+    private int carrosReservados;
 
     public Usuario(String nombre, String apellidos, String identificacion, String correo, String numero, String contrasena) {
         this.nombre = nombre;
@@ -106,5 +107,15 @@ public class Usuario implements Serializable {
     public void setCarrosVendidos(int carrosVendidos) {
         this.carrosVendidos = carrosVendidos;
     }
+
+    public int getCarrosReservados() {
+        return carrosReservados;
+    }
+
+    public void setCarrosReservados(int carrosReservados) {
+        this.carrosReservados = carrosReservados;
+    }
+    
+    
 
 }

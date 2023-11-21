@@ -2,12 +2,16 @@ package proyecto_estructura;
 
 import Cliente.Lista_Clientes;
 import Cliente.NodoCliente;
+import Usuario.Lista_Usuario;
+import Usuario.NodoUsuario;
 import Vehiculo.ListaVehiculos;
 import javax.swing.JOptionPane;
 import Vehiculo.ListaVehiculos;
 import Vehiculo.Nodo;
 import javax.swing.JOptionPane;
 import proyecto_estructura.InformacionEmpresa;
+
+
 
 /**
  *
@@ -200,31 +204,77 @@ public class ModuloReportes {
                     break;
 
                 case 3: //Top 3 clientes                  
-                    //   ListaVehiculos top=ListaVehiculos.leerVehiculos();
-                    //   top.getCabeza().getDato().getCliente();
-                    //Como saber cuantos vehiculos tiene un cliente?             
-                    ListaVehiculos top = ListaVehiculos.leerVehiculos();
-                    if (top.getCabeza() == null) {
-                        System.out.println("La lista está vacía.");
+                                 
+                    //Solo este case 3 falta
+                    
+                    Lista_Clientes liTop = Lista_Clientes.leerClientes();
+                                if (liTop == null) {
+                                    liTop = new Lista_Clientes();
+                                }
+                                StringBuilder str = new StringBuilder();
+                                str.append("Top 3 Clientes:").append("\n");
+                                NodoCliente aux = liTop.getCabeza();
+                                int contadorTop =0;
+                                while (aux != null) {
+                                    if (aux.getDato().getCarrosComprados() > 0) {
+                                        str.append("ID:").append(aux.getDato().getID()).append(", ").append(aux.getDato().getNombre()).append(" ").append(aux.getDato().getApellidos()).append(", cantidad:").append(aux.getDato().getCarrosComprados()).append("\n");
+                                    }
+                                    aux = aux.getSiguiente();
+                                    contadorTop+=1;
+                                    if (contadorTop==3){
+                                        break;
+                                    }
+                                }
+                                JOptionPane.showMessageDialog(null, str.toString());
+                                break;
+                                
+                                
+                          
 
-                    }
-
-                    break;
+                                
+                                
+                    
                 case 4: //Ventas por vendedor
-                    //esto va con el modulo de Login
-                    Usuario.Lista_Usuario ventasVendedor = Usuario.Lista_Usuario.leerUsuarios();
-                    // if (ventasVendedor.getCabeza().getDato().)
+                    //esto va con el modulo de usuario                                 
                     //debe tener un contador de ventas
+                    Lista_Usuario liVent = Lista_Usuario.leerUsuarios();
+                                if (liVent == null) {
+                                    liVent = new Lista_Usuario();
+                                }
+                                StringBuilder str3 = new StringBuilder();
+                                str3.append("Usuarios que vendieron vehiculos:").append("\n");
+                                NodoUsuario aux1 = liVent.getCabeza();
+                                while (aux1 != null) {
+                                    if (aux1.getDato().getCarrosVendidos() > 0) {
+                                        str3.append("ID:").append(aux1.getDato().getID()).append(", ").append(aux1.getDato().getNombre()).append(" ").append(aux1.getDato().getApellidos()).append(", cantidad:").append(aux1.getDato().getCarrosVendidos()).append("\n");
+                                    }
+                                    aux1 = aux1.getSiguiente();
+                                }
+                                JOptionPane.showMessageDialog(null, str3.toString());
+                                break;
 
-                    break;
+                    
                 case 5:  //Reservas por vendedor
-                    //esto va con el modulo de Login
-                    Usuario.Lista_Usuario reservasVendedor = Usuario.Lista_Usuario.leerUsuarios();
+                    //esto va con el modulo de Login                   
                     //debe tener un contador de reservas
-                    //con la lista de vehículo, crear una lista aux que no guarde
-                    //iterar con la lista de lo que salga en reservado y hacer un push a la auxiliar(get dato)
+                    
+                    Lista_Usuario liReserv = Lista_Usuario.leerUsuarios();
+                                if (liReserv == null) {
+                                    liReserv = new Lista_Usuario();
+                                }
+                                StringBuilder str2 = new StringBuilder();
+                                str2.append("Usuarios que reservaron vehiculos:").append("\n");
+                                NodoUsuario aux2 = liReserv.getCabeza();
+                                while (aux2 != null) {
+                                    if (aux2.getDato().getCarrosReservados() > 0) {  
+                                        str2.append("ID:").append(aux2.getDato().getID()).append(", ").append(aux2.getDato().getNombre()).append(" ").append(aux2.getDato().getApellidos()).append(", cantidad:").append(aux2.getDato().getCarrosReservados()).append("\n");
+                                    }
+                                    aux2 = aux2.getSiguiente();
+                                }
+                                JOptionPane.showMessageDialog(null, str2.toString());
+                                break;
 
-                    break;
+                    
                 case 6:
                     InformacionEmpresa.mostrarInformacionEnDialogo();
                     break;
