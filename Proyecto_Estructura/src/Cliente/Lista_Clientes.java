@@ -30,6 +30,48 @@ public class Lista_Clientes implements Serializable {
         return str;
     }
 
+    public String obtenerTop3Clientes() {
+
+        NodoCliente actual = cabeza;
+
+        while (actual != null) {
+            NodoCliente siguiente = actual.getSiguiente();
+
+            while (siguiente != null) {
+                if (siguiente.getDato().getCarrosComprados() > actual.getDato().getCarrosComprados()) {
+
+                    Cliente temp = actual.getDato();
+                    actual.setDato(siguiente.getDato());
+                    siguiente.setDato(temp);
+                }
+
+                siguiente = siguiente.getSiguiente();
+            }
+
+            actual = actual.getSiguiente();
+        }
+
+        StringBuilder resultado = new StringBuilder();
+        actual = cabeza;
+
+        for (int i = 0; i < Math.min(3, contarClientes()); i++) {
+            resultado.append(actual.getDato().toString()).append("\n");
+            actual = actual.getSiguiente();
+        }
+
+        return resultado.toString();
+    }
+
+    private int contarClientes() {
+        int count = 0;
+        NodoCliente actual = cabeza;
+        while (actual != null) {
+            count++;
+            actual = actual.getSiguiente();
+        }
+        return count;
+    }
+
     public NodoCliente getCabeza() {
         return cabeza;
     }
@@ -150,39 +192,18 @@ public class Lista_Clientes implements Serializable {
         }
     }
 
-    
- public boolean existe_identificacion_CL(String identificacion) {
-    NodoCliente aux = cabeza;
-    while (aux != null) {
-        Cliente cliente = aux.getDato();
-        if (cliente != null && cliente.getIdentificacion() != null && cliente.getIdentificacion().equals(identificacion)) {
-            return true;
+    public boolean existe_identificacion_CL(String identificacion) {
+        NodoCliente aux = cabeza;
+        while (aux != null) {
+            Cliente cliente = aux.getDato();
+            if (cliente != null && cliente.getIdentificacion() != null && cliente.getIdentificacion().equals(identificacion)) {
+                return true;
+            }
+            aux = aux.getSiguiente();
         }
-        aux = aux.getSiguiente();
+        return false;
     }
-    return false;
-}
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     public void modificar(String id) {
         NodoCliente nodoAux = cabeza;
         while (nodoAux != null) {

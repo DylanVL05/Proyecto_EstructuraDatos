@@ -14,6 +14,7 @@ public class Cliente implements Serializable {
 
     private String nombre, apellidos, identificacion, correo, tel, ID;
     private int carrosComprados, carrosReservados;
+
     public Cliente(String nombre, String apellidos, String identificacion, String correo, String tel) {
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -68,7 +69,7 @@ public class Cliente implements Serializable {
     @Override
     public String toString() {
         return "ID: " + ID + ", Nombre: " + nombre + ", Apellidos: " + apellidos + ", Email: " + correo
-                + ", Identificación: " + identificacion + ", Teléfono: " + tel;
+                + ", Identificación: " + identificacion + ", Teléfono: " + tel + ", Veh-Comprados: " + carrosComprados + ", Veh-Reservados: " + carrosReservados;
     }
 
     public String getID() {

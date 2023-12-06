@@ -60,26 +60,31 @@ public class ListaVehiculos implements Serializable {
                             Vehiculo v = nodoAux.getDato();
                             v.setEstado(opt);
                             v.setCliente(ClientesNodo.getDato().getNombre());
+                            Lista_Usuario LiU = Lista_Usuario.leerUsuarios();
+                            NodoUsuario u = LiU.getCabeza();
+
                             if ("Reservado".equals(opt)) {
                                 ClientesNodo.getDato().setCarrosReservados(ClientesNodo.getDato().getCarrosReservados() + 1);
+                                while (u != null) {
+                                    if (u.getDato().getID().equals(vendedor.getID())) {
+                                        u.getDato().setCarrosReservados(u.getDato().getCarrosReservados() + 1);
+                                        break;
+                                    }
+                                    u = u.getSiguiente();
+                                }
                             } else {
                                 ClientesNodo.getDato().setCarrosComprados(ClientesNodo.getDato().getCarrosComprados() + 1);
+                                while (u != null) {
+                                    if (u.getDato().getID().equals(vendedor.getID())) {
+                                        u.getDato().setCarrosVendidos(u.getDato().getCarrosVendidos() + 1);
+                                        break;
+                                    }
+                                    u = u.getSiguiente();
+                                }
                             }
+                            Lista_Usuario.guardarUsuario(LiU);
                             nodoAux.setDato(v);
                             Lista_Clientes.guardarClientes(l);
-                            Lista_Usuario liU = Lista_Usuario.leerUsuarios();
-                            if (liU == null) {
-                                liU = new Lista_Usuario();
-                            }
-                            NodoUsuario AUX = liU.getCabeza();
-                            while (AUX != null) {
-                                if (AUX.getDato().getID().equals(vendedor.getID()) && AUX.getDato().getIdentificacion().equals(vendedor.getIdentificacion())) {
-                                    AUX.getDato().setCarrosVendidos(AUX.getDato().getCarrosVendidos() + 1);
-                                    Lista_Usuario.guardarUsuario(liU);
-                                    break;
-                                }
-                                AUX = AUX.getSiguiente();
-                            }
                             return;
                         }
                         ClientesNodo = ClientesNodo.getSiguiente();
