@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class ModuloVehiculos {
 
-    public static void EjecutarModulo(Usuario user) {
+    public static void EjecutarModulo(Usuario user, ModuloGarantias garantias) {
         String[] opciones = {"Mantenimiento de Vehículos", "Venta de Vehículos", "Mostrar información de la empresa", "Salir"};
         while (true) {
             int seleccion = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Menú Principal", 0, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
@@ -35,6 +35,7 @@ public class ModuloVehiculos {
                                     if (l == null) {
                                         l = new ListaVehiculos();
                                     }
+                                    garantias.AgregarVehiculo(vehiculo.getBrand().toLowerCase());
                                     l.inserta(vehiculo);
                                     ListaVehiculos.guardarVehiculos(l);
                                     JOptionPane.showMessageDialog(null, "Se ha agregado un vehículo");

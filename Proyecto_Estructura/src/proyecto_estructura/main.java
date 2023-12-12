@@ -9,6 +9,7 @@ public class main {
 
     public static void main(String[] args) {
         Usuario Vendedor = ModuloLogin.login();
+        ModuloGarantias garantias = new ModuloGarantias();
         String[] options = {"Usuarios", "Clientes", "Vehículos", "Garantías", "Informes", "Información", "Cancelar"};
         while (true) {
             int choice = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Menú de Selección",
@@ -21,10 +22,10 @@ public class main {
                     Modulo_Cliente.EjecutarModulo();
                     break;
                 case 2: // Vehículos
-                    ModuloVehiculos.EjecutarModulo(Vendedor);
+                    ModuloVehiculos.EjecutarModulo(Vendedor, garantias);
                     break;
                 case 3: // Garantías
-                    JOptionPane.showMessageDialog(null, "No implementado");
+                    garantias.buscarGarantia(JOptionPane.showInputDialog("Ingrese el tipo de vehiculo"));
                     break;
                 case 4: // Informes
                     ModuloReportes.EjecutarModulo();
